@@ -30,6 +30,8 @@ public class PlayerMovment : MonoBehaviour
         //Input
         Move = InputHandeler.GetComponent<PlayerInputHandeler>().Move;
         Look = InputHandeler.GetComponent<PlayerInputHandeler>().Look;
+        transform.position = new Vector3(0, 0.989f, 0);
+
 
         #region Move
         //Move
