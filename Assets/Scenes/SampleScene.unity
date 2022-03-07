@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 73cb64bc62c4d3d4598be11b501f2da7,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -875,7 +875,7 @@ GameObject:
   - component: {fileID: 470625228}
   m_Layer: 8
   m_Name: Bowling Ball
-  m_TagString: Untagged
+  m_TagString: Grab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef10180644d13b544a196d4adbde3346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.67
+  speed: 5
   inputSource: 4
   gravity: -9.81
   groundLayer:
@@ -1299,7 +1299,7 @@ RectTransform:
   - {fileID: 1429303383}
   - {fileID: 360779839}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2413,7 +2413,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &581134808
 GameObject:
@@ -3211,8 +3211,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1486367267}
-  m_Father: {fileID: 8272871540918966300}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4030,7 +4030,7 @@ GameObject:
   - component: {fileID: 1109928326}
   m_Layer: 8
   m_Name: Bowling Ball (3)
-  m_TagString: Untagged
+  m_TagString: Grab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10752,7 +10752,7 @@ GameObject:
   - component: {fileID: 1689681981}
   m_Layer: 8
   m_Name: Bowling Ball (2)
-  m_TagString: Untagged
+  m_TagString: Grab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11253,6 +11253,8 @@ GameObject:
   - component: {fileID: 1785230476}
   - component: {fileID: 1785230475}
   - component: {fileID: 1785230474}
+  - component: {fileID: 1785230477}
+  - component: {fileID: 1785230478}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -11270,7 +11272,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.741, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2012679769}
   m_Father: {fileID: 8272871540918966300}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11356,6 +11359,32 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785230472}
   m_Enabled: 1
+--- !u!65 &1785230477
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785230472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1785230478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785230472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e69ce9ba5ff8745a0dec0985627981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookingAtObject: 0
 --- !u!1001 &1797613006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11462,6 +11491,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 22bca7a54909aa549b23a4f4660964d8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grab
       objectReference: {fileID: 0}
     - target: {fileID: 4050383671413896862, guid: 22bca7a54909aa549b23a4f4660964d8,
         type: 3}
@@ -12007,7 +12041,7 @@ GameObject:
   - component: {fileID: 1862913458}
   m_Layer: 8
   m_Name: Bowling Ball (1)
-  m_TagString: Untagged
+  m_TagString: Grab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12480,6 +12514,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959818175}
   m_CullTransparentMesh: 0
+--- !u!1 &2012679768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2012679769}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2012679769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012679768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.864}
+  m_LocalScale: {x: 0.29373, y: 0.29373, z: 0.29373}
+  m_Children: []
+  m_Father: {fileID: 1785230473}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2021695224
 GameObject:
   m_ObjectHideFlags: 0
@@ -12546,7 +12610,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2058811498
 GameObject:
@@ -13274,7 +13338,10 @@ MonoBehaviour:
   mouseSpeed: 50
   controller: {fileID: 8272871540918966301}
   speed: 5
-  gravity: -10
+  gravity: -9.81
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!4 &8272871540918966300
 Transform:
   m_ObjectHideFlags: 0
@@ -13283,12 +13350,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8272871540918966302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.989, z: 0}
+  m_LocalPosition: {x: 0, y: 1.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8272871539914569498}
   - {fileID: 1785230473}
-  - {fileID: 733481058}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

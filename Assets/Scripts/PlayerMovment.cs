@@ -20,33 +20,37 @@ public class PlayerMovment : MonoBehaviour
     public CharacterController controller;
 
     public float speed = 10f;
-    public float gravity = -10f;
+    public float gravity = -9.81f;
 
     Vector3 velocity;
-    bool isGrounded;
+    private float fallingSpeed;
+    public LayerMask groundLayer;
 
-    private void Update()
+
+    private void FixedUpdate()
     {
         //Input
         Move = InputHandeler.GetComponent<PlayerInputHandeler>().Move;
         Look = InputHandeler.GetComponent<PlayerInputHandeler>().Look;
         transform.position = new Vector3(0, 0.989f, 0);
 
+        bool isGrounded = CheckIfGrounded();
+        if (isGrounded)
+        {
+            fallingSpeed = 0;
+        }
+        else
+        {
+            fallingSpeed += gravity * Time.fixedDeltaTime;
+        }
+        fallingSpeed += gravity * Time.fixedDeltaTime;
+        controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
 
         #region Move
-        //Move
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
 
         Vector3 move = transform.right * Move.x + transform.forward * Move.y;
 
         controller.Move(move * speed * Time.deltaTime);
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
         #endregion
 
         #region Look
@@ -65,6 +69,16 @@ public class PlayerMovment : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        controller.enableOverlapRecovery = false;
+    }
+
+    bool CheckIfGrounded()
+    {
+        // tells us if on ground
+        Vector3 rayStart = transform.TransformPoint(controller.center);
+        float rayLength = controller.center.y + 0.01f;
+        bool hasHit = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
+        return hasHit;
     }
 
 }
