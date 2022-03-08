@@ -1101,7 +1101,7 @@ Transform:
   m_Children:
   - {fileID: 157488103}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &471305125
 MonoBehaviour:
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef10180644d13b544a196d4adbde3346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 1.98
   inputSource: 4
   gravity: -9.81
   groundLayer:
@@ -2431,7 +2431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &581134809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10424,7 +10424,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1542721986
 GameObject:
@@ -11384,7 +11384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e69ce9ba5ff8745a0dec0985627981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InputHandeler: {fileID: 8272871541941350672}
   lookingAtObject: 0
+  grabObj: {fileID: 2012679768}
 --- !u!1001 &1797613006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13333,11 +13335,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b936a2bb4ebfb524394f6506c5a8083a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Look: {x: 0, y: 0}
   InputHandeler: {fileID: 8272871541941350672}
   Camera: {fileID: 1785230472}
   mouseSpeed: 50
   controller: {fileID: 8272871540918966301}
-  speed: 5
+  speed: 1.98
   gravity: -9.81
   groundLayer:
     serializedVersion: 2
@@ -13439,3 +13442,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Move: {x: 0, y: 0}
   Look: {x: 0, y: 0}
+  Interact: 0
+  Release: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovment : MonoBehaviour
 {
     private Vector2 Move;
-    private Vector2 Look;
+    public Vector2 Look;
     public GameObject InputHandeler;
 
     public GameObject Camera;
@@ -27,30 +27,17 @@ public class PlayerMovment : MonoBehaviour
     public LayerMask groundLayer;
 
 
-    private void FixedUpdate()
+    private void Update()
     {
         //Input
         Move = InputHandeler.GetComponent<PlayerInputHandeler>().Move;
         Look = InputHandeler.GetComponent<PlayerInputHandeler>().Look;
-        transform.position = new Vector3(0, 0.989f, 0);
-
-        bool isGrounded = CheckIfGrounded();
-        if (isGrounded)
-        {
-            fallingSpeed = 0;
-        }
-        else
-        {
-            fallingSpeed += gravity * Time.fixedDeltaTime;
-        }
-        fallingSpeed += gravity * Time.fixedDeltaTime;
-        controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
 
         #region Move
+        Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+        Vector3 direction = headYaw * new Vector3(Move.x, 0, Move.y);
 
-        Vector3 move = transform.right * Move.x + transform.forward * Move.y;
-
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(direction * Time.fixedDeltaTime * speed);
         #endregion
 
         #region Look
@@ -66,7 +53,22 @@ public class PlayerMovment : MonoBehaviour
 
     }
 
-    void Start()
+	private void FixedUpdate()
+	{
+        bool isGrounded = CheckIfGrounded();
+        if (isGrounded)
+        {
+            fallingSpeed = 0;
+        }
+        else
+        {
+            fallingSpeed += gravity * Time.fixedDeltaTime;
+        }
+        fallingSpeed += gravity * Time.fixedDeltaTime;
+        controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
+    }
+
+	void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         controller.enableOverlapRecovery = false;

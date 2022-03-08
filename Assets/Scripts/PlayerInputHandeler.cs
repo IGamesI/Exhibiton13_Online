@@ -8,6 +8,8 @@ public class PlayerInputHandeler : MonoBehaviour
 
     public Vector2 Move;
     public Vector2 Look;
+    public bool Interact;
+    public bool Release;
 
     private void Awake()
     {
@@ -20,6 +22,12 @@ public class PlayerInputHandeler : MonoBehaviour
         controls.Player.Look.started += ctx => Look = ctx.ReadValue<Vector2>();
         controls.Player.Look.performed += ctx => Look = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += ctx => Look = ctx.ReadValue<Vector2>();
+        // Interact Input
+        controls.Player.Interact.started += ctx => Interact = true;
+        controls.Player.Interact.canceled += ctx => Interact = false;
+        // Release Input
+        controls.Player.Release.started += ctx => Release = true;
+        controls.Player.Release.canceled += ctx => Release = false;
     }
 
     private void OnEnable()
