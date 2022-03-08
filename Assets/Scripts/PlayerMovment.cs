@@ -10,6 +10,7 @@ public class PlayerMovment : MonoBehaviour
     public GameObject InputHandeler;
 
     public GameObject Camera;
+    
 
     public float mouseSpeed = 100f;
     
@@ -51,9 +52,18 @@ public class PlayerMovment : MonoBehaviour
         transform.Rotate(Vector3.up * Look.x);
         #endregion
 
+        #region Jump
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jump();
+        }
+        #endregion
+
+
+
     }
 
-	private void FixedUpdate()
+    private void FixedUpdate()
 	{
         bool isGrounded = CheckIfGrounded();
         if (isGrounded)
@@ -81,6 +91,14 @@ public class PlayerMovment : MonoBehaviour
         float rayLength = controller.center.y + 0.01f;
         bool hasHit = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
         return hasHit;
+    }
+    void jump()
+    {
+        bool hit_bi_moola = CheckIfGrounded();
+        if (hit_bi_moola)
+        {
+            gameObject.GetComponent<Rigidbody>().AddForce(transform.up * 10f, ForceMode.Impulse);
+        }
     }
 
 }
