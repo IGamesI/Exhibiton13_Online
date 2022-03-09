@@ -10,6 +10,7 @@ public class PlayerMovment : MonoBehaviour
     public GameObject InputHandeler;
 
     public GameObject Camera;
+    public Gun g;
     
 
     public float mouseSpeed = 100f;
@@ -28,7 +29,8 @@ public class PlayerMovment : MonoBehaviour
     public LayerMask groundLayer;
 
 
-    private void Update()
+    
+    void Update()
     {
         //Input
         Move = InputHandeler.GetComponent<PlayerInputHandeler>().Move;
@@ -58,10 +60,12 @@ public class PlayerMovment : MonoBehaviour
             jump();
         }
         #endregion
-
-
-
+        if (Input.GetMouseButton(0))
+        {
+            g.Fire();
+        }
     }
+    
 
     private void FixedUpdate()
 	{
