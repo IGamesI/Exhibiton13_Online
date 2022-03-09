@@ -16,6 +16,8 @@ public class PlayerGrab : MonoBehaviour
     private XRGrabInteractable grabInteractableComp;
     private Rigidbody rigidbodyComp;
 
+    private bool hasGun = false;
+
     private void Update()
     {
         bool interact = InputHandeler.GetComponent<PlayerInputHandeler>().Interact;
@@ -31,8 +33,12 @@ public class PlayerGrab : MonoBehaviour
         {
             grabing = false;
             ReleaseObject();
-
         }
+
+        if (hasGun && Input.GetMouseButtonDown(0))
+		{
+            oldObj.GetComponent<Gun>().Fire();
+		}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -73,12 +79,22 @@ public class PlayerGrab : MonoBehaviour
         if (oldObj.GetComponent<Gun>())
         {
             oldObj.transform.localRotation = Quaternion.Euler(90, -180, 90);
+            hasGun = true;
         }
     }
 
     void ReleaseObject()
     {
-        print("alpepe");
+        Transform grabPosition = grabObj.transform;
+        if (hasGun)
+		{
+            hasGun = false;
+		}
+
+        if (oldObj == null)
+		{
+            oldObj = grabPosition.GetChild(0).gameObject;
+		}
         oldObj.transform.parent = null;
         CopyComponent(grabInteractableComp, oldObj);
         CopyComponent(rigidbodyComp, oldObj);

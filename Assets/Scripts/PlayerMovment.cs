@@ -10,8 +10,6 @@ public class PlayerMovment : MonoBehaviour
     public GameObject InputHandeler;
 
     public GameObject Camera;
-    public Gun g;
-    
 
     public float mouseSpeed = 100f;
     
@@ -28,13 +26,27 @@ public class PlayerMovment : MonoBehaviour
     private float fallingSpeed;
     public LayerMask groundLayer;
 
-
+    public Animation walkAnimation;
     
     void Update()
     {
         //Input
         Move = InputHandeler.GetComponent<PlayerInputHandeler>().Move;
         Look = InputHandeler.GetComponent<PlayerInputHandeler>().Look;
+
+        if (Move.x > 0 || Move.y > 0)
+		{
+            if (!walkAnimation.isPlaying)
+			{
+                walkAnimation.Play();
+			}
+        } else
+		{
+            if (walkAnimation.isPlaying)
+			{
+                walkAnimation.Rewind();
+			}
+		}
 
         #region Move
         Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
@@ -60,10 +72,6 @@ public class PlayerMovment : MonoBehaviour
             jump();
         }
         #endregion
-        if (Input.GetMouseButton(0))
-        {
-            g.Fire();
-        }
     }
     
 
