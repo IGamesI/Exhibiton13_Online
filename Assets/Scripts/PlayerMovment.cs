@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 
 public class PlayerMovment : MonoBehaviour
 {
+    PhotonView view;
+
     private Vector2 Move;
     public Vector2 Look;
     public GameObject InputHandeler;
@@ -31,87 +33,112 @@ public class PlayerMovment : MonoBehaviour
     
     void Update()
     {
-        //Input
-        Move = InputHandeler.GetComponent<PlayerInputHandeler>().Move;
-        Look = InputHandeler.GetComponent<PlayerInputHandeler>().Look;
-
-        if (Move.x > 0 || Move.y > 0)
-		{
-            if (!walkAnimation.isPlaying)
-			{
-                walkAnimation.Play();
-			}
-        } else
-		{
-            if (walkAnimation.isPlaying)
-			{
-                walkAnimation.Rewind();
-			}
-		}
-
-        #region Move
-        Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-        Vector3 direction = headYaw * new Vector3(Move.x, 0, Move.y);
-
-        controller.Move(direction * Time.fixedDeltaTime * speed);
-        #endregion
-
-        #region Look
-        //Look
-        Look = Look * mouseSpeed * Time.deltaTime;
-
-        xRotation -= Look.y;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        
-
-        Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * Look.x);
-        #endregion
-
-        #region Jump
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (view.IsMine)
         {
-            jump();
+            //Input
+            Move = InputHandeler.GetComponent<PlayerInputHandeler>().Move;
+            Look = InputHandeler.GetComponent<PlayerInputHandeler>().Look;
+
+            if (Move.x != 0 || Move.y != 0)
+            {
+                if (!walkAnimation.isPlaying)
+                {
+                    walkAnimation.Play();
+                }
+            }
+            else
+            {
+                if (walkAnimation.isPlaying)
+                {
+                    walkAnimation.Rewind();
+                }
+            }
+
+            #region Move
+            Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+            Vector3 direction = headYaw * new Vector3(Move.x, 0, Move.y);
+
+            controller.Move(direction * Time.fixedDeltaTime * speed);
+            #endregion
+
+            #region Look
+            //Look
+            Look = Look * mouseSpeed * Time.deltaTime;
+
+            xRotation -= Look.y;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+
+            Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            transform.Rotate(Vector3.up * Look.x);
+            #endregion
+
+            #region Jump
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                jump();
+            }
+            #endregion
+
         }
-        #endregion
     }
     
 
     private void FixedUpdate()
 	{
-        bool isGrounded = CheckIfGrounded();
-        if (isGrounded)
+        if (view.IsMine)
         {
-            fallingSpeed = 0;
-        }
-        else
-        {
+            bool isGrounded = CheckIfGrounded();
+            if (isGrounded)
+            {
+                fallingSpeed = 0;
+            }
+            else
+            {
+                fallingSpeed += gravity * Time.fixedDeltaTime;
+            }
             fallingSpeed += gravity * Time.fixedDeltaTime;
+            controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
         }
-        fallingSpeed += gravity * Time.fixedDeltaTime;
-        controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
     }
 
 	void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        controller.enableOverlapRecovery = false;
+        view = GetComponent<PhotonView>();
+        if (view.IsMine)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            controller.enableOverlapRecovery = false;
+        } else
+		{
+            //Destroy(Camera);
+            Camera.GetComponent<Camera>().enabled = false;
+        }
     }
 
     bool CheckIfGrounded()
     {
-        // tells us if on ground
-        Vector3 rayStart = transform.TransformPoint(controller.center);
-        float rayLength = controller.center.y + 0.01f;
-        bool hasHit = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
-        return hasHit;
+        if (view.IsMine)
+        {
+            // tells us if on ground
+            Vector3 rayStart = transform.TransformPoint(controller.center);
+            float rayLength = controller.center.y + 0.01f;
+            bool hasHit = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
+            return hasHit;
+        } else
+		{
+            return true;
+		}
     }
     void jump()
     {
-        bool hit_bi_moola = CheckIfGrounded();
-        if (hit_bi_moola)
+        if (view.IsMine)
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(transform.up * 10f, ForceMode.Impulse);
+            bool hit_bi_moola = CheckIfGrounded();
+            if (hit_bi_moola)
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(transform.up * 10f, ForceMode.Impulse);
+            }
         }
     }
 
