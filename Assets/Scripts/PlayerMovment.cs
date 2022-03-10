@@ -13,7 +13,8 @@ public class PlayerMovment : MonoBehaviour
 
     public float mouseSpeed = 100f;
     
-    float xRotation = 0f;
+    public float xRotation = 0f;
+    
 
 
     //Move Vars
@@ -61,6 +62,7 @@ public class PlayerMovment : MonoBehaviour
 
         xRotation -= Look.y;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        
 
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * Look.x);
