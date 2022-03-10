@@ -675,6 +675,7 @@ GameObject:
   - component: {fileID: 470625223}
   - component: {fileID: 470625227}
   - component: {fileID: 470625228}
+  - component: {fileID: 470625229}
   m_Layer: 8
   m_Name: Bowling Ball
   m_TagString: Grab
@@ -887,6 +888,22 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!114 &470625229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470625222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &484852970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2995,6 +3012,7 @@ GameObject:
   - component: {fileID: 1109928328}
   - component: {fileID: 1109928327}
   - component: {fileID: 1109928326}
+  - component: {fileID: 1109928332}
   m_Layer: 8
   m_Name: Bowling Ball (3)
   m_TagString: Grab
@@ -3207,6 +3225,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1109928332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109928325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1148796250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4701,6 +4735,7 @@ GameObject:
   - component: {fileID: 1689681983}
   - component: {fileID: 1689681982}
   - component: {fileID: 1689681981}
+  - component: {fileID: 1689681987}
   m_Layer: 8
   m_Name: Bowling Ball (2)
   m_TagString: Grab
@@ -4913,6 +4948,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1689681987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689681980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1695884592
 GameObject:
   m_ObjectHideFlags: 0
@@ -5543,6 +5594,22 @@ MonoBehaviour:
   barrel: {fileID: 1764182541}
   audioSource: {fileID: 0}
   audioClip: {fileID: 0}
+--- !u!114 &1797613013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797613007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1806987953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5958,6 +6025,7 @@ GameObject:
   - component: {fileID: 1862913460}
   - component: {fileID: 1862913459}
   - component: {fileID: 1862913458}
+  - component: {fileID: 1862913464}
   m_Layer: 8
   m_Name: Bowling Ball (1)
   m_TagString: Grab
@@ -6170,6 +6238,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1862913464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862913457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1894497376
 GameObject:
   m_ObjectHideFlags: 0
