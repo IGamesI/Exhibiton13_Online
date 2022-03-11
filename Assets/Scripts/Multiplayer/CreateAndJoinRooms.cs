@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
-    public InputField createInput;
-    public InputField joinInput;
+    public TMP_InputField createInput;
+    public TMP_InputField joinInput;
 
     public void CreateRoom()
     {

@@ -54,13 +54,6 @@ public class PlayerMovment : MonoBehaviour
                 }
             }
 
-            #region Move
-            Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-            Vector3 direction = headYaw * new Vector3(Move.x, 0, Move.y);
-
-            controller.Move(direction * Time.fixedDeltaTime * speed);
-            #endregion
-
             #region Look
             //Look
             Look = Look * mouseSpeed * Time.deltaTime;
@@ -99,6 +92,13 @@ public class PlayerMovment : MonoBehaviour
             }
             fallingSpeed += gravity * Time.fixedDeltaTime;
             controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
+
+            #region Move
+            Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+            Vector3 direction = headYaw * new Vector3(Move.x, 0, Move.y);
+
+            controller.Move(direction * Time.fixedDeltaTime * speed);
+            #endregion
         }
     }
 

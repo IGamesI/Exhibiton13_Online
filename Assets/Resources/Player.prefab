@@ -1086,7 +1086,7 @@ MonoBehaviour:
   mouseSpeed: 50
   xRotation: 0
   controller: {fileID: 4437734366050469687}
-  speed: 1.98
+  speed: 5
   gravity: -9.81
   groundLayer:
     serializedVersion: 2
@@ -1129,6 +1129,8 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1982724269894505918}
+  - {fileID: 4733942590064528136}
+  - {fileID: 2371748609006034023}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
