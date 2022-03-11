@@ -1095,6 +1095,7 @@ MonoBehaviour:
     m_Bits: 512
   walkAnimation: {fileID: 4437734366050469685}
   playerName: {fileID: 9092333112892693463}
+  Health: 0
 --- !u!111 &4437734366050469685
 Animation:
   m_ObjectHideFlags: 0

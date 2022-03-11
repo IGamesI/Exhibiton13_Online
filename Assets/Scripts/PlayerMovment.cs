@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovment : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class PlayerMovment : MonoBehaviour
 
     public Animation walkAnimation;
     public TMP_Text playerName;
+
+    public float Health = 100;
     
     void Update()
     {
@@ -81,6 +84,11 @@ public class PlayerMovment : MonoBehaviour
 			{
                 print("Exit Game");
                 Application.Quit();
+            }
+
+            if (Health <= 0)
+            {
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }
@@ -150,5 +158,4 @@ public class PlayerMovment : MonoBehaviour
             }
         }
     }
-
 }
