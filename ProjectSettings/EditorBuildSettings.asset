@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 1ba9080a863e2614281044d08cc0b3cd
   - enabled: 1
+    path: Assets/Scenes/PasswordMenu.unity
+    guid: ae956f987b3006148a7eba46ec75baaa
+  - enabled: 1
+    path: Assets/Scenes/AdminPanel.unity
+    guid: f7b3cbdd2cba0174686ac481edd1f79c
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:

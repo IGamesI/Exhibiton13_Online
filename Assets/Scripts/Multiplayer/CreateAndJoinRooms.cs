@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
@@ -26,4 +27,9 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.NickName = nameInput.text;
         PhotonNetwork.LoadLevel("SampleScene");
     }
+
+    public void AdminPanel()
+	{
+        SceneManager.LoadScene("PasswordMenu");
+	}
 }
