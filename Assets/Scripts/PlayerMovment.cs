@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using System;
 
 public class PlayerMovment : MonoBehaviour
 {
@@ -76,6 +77,11 @@ public class PlayerMovment : MonoBehaviour
             #endregion
 
             playerName.text = view.Owner.NickName;
+            if (Input.GetKeyDown(KeyCode.Escape))
+			{
+                print("Exit Game");
+                Application.Quit();
+            }
         }
     }
     

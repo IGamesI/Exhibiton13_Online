@@ -49,7 +49,6 @@ public class PlayerGrab : MonoBehaviour
             {
                 oldObj.GetComponent<Gun>().Fire();
             }
-
         }
     }
 
@@ -98,11 +97,14 @@ public class PlayerGrab : MonoBehaviour
             Destroy(oldObj.GetComponent<Rigidbody>());
             Transform grabPosition = grabObj.transform;
             oldObj.transform.parent = grabPosition;
-            oldObj.transform.position = grabPosition.position;
             if (oldObj.GetComponent<Gun>())
             {
+                oldObj.transform.localPosition = new Vector3(0, -1.17f, 0);
                 oldObj.transform.localRotation = Quaternion.Euler(90, -180, 90);
                 hasGun = true;
+            } else
+			{
+                oldObj.transform.position = grabPosition.position;
             }
         }
     }

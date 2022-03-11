@@ -32,4 +32,10 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 	{
         SceneManager.LoadScene("PasswordMenu");
 	}
+
+    public void ExitGame()
+	{
+        print("Exit Game");
+        Application.Quit();
+    }
 }
