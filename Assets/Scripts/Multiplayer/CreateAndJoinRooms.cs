@@ -9,6 +9,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
     public TMP_InputField createInput;
     public TMP_InputField joinInput;
+    public TMP_InputField nameInput;
 
     public void CreateRoom()
     {
@@ -22,6 +23,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        PhotonNetwork.LocalPlayer.NickName = nameInput.text;
         PhotonNetwork.LoadLevel("SampleScene");
     }
 }

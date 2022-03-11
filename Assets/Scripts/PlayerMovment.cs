@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class PlayerMovment : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PlayerMovment : MonoBehaviour
     public LayerMask groundLayer;
 
     public Animation walkAnimation;
+    public TMP_Text playerName;
     
     void Update()
     {
@@ -73,6 +75,7 @@ public class PlayerMovment : MonoBehaviour
             }
             #endregion
 
+            playerName.text = view.Owner.NickName;
         }
     }
     

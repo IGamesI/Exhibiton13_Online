@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -576,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createInput: {fileID: 300165557}
   joinInput: {fileID: 300165557}
+  nameInput: {fileID: 695570473}
 --- !u!1 &300165555
 GameObject:
   m_ObjectHideFlags: 0
