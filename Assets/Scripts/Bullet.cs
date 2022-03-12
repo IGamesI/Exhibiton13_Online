@@ -9,12 +9,10 @@ public class Bullet : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (view.IsMine)
+		print("ouch");
+		if (collision.gameObject.tag == "Player")
 		{
-			if (collision.gameObject.tag == "Player")
-			{
-				collision.gameObject.GetComponent<PlayerMovment>().Health -= 20;
-			}
+			collision.gameObject.GetComponent<PlayerMovment>().Health -= 20;
 		}
 	}
 }

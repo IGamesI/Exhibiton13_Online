@@ -1027,7 +1027,7 @@ GameObject:
   - component: {fileID: 1982724269894505918}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1095,7 +1095,7 @@ MonoBehaviour:
     m_Bits: 512
   walkAnimation: {fileID: 4437734366050469685}
   playerName: {fileID: 9092333112892693463}
-  Health: 0
+  Health: 100
 --- !u!111 &4437734366050469685
 Animation:
   m_ObjectHideFlags: 0
@@ -2500,6 +2500,7 @@ MonoBehaviour:
   InputHandeler: {fileID: 604261365538057921}
   lookingAtObject: 0
   grabObj: {fileID: 5718123680482300274}
+  player: {fileID: 4437734366050469684}
 --- !u!1 &5718123680999395347
 GameObject:
   m_ObjectHideFlags: 0

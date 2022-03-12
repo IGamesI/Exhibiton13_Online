@@ -20,10 +20,11 @@ public class PlayerGrab : MonoBehaviour
     private Rigidbody rigidbodyComp;
 
     private bool hasGun = false;
+    public GameObject player;
 
     private void Start()
     {
-        view = gameObject.gameObject.transform.parent.GetComponent<PhotonView>();
+        view = player.GetComponent<PhotonView>();
     }
 
 	private void Update()

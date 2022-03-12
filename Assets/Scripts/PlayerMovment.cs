@@ -79,7 +79,6 @@ public class PlayerMovment : MonoBehaviour
             }
             #endregion
 
-            playerName.text = view.Owner.NickName;
             if (Input.GetKeyDown(KeyCode.Escape))
 			{
                 print("Exit Game");
@@ -131,6 +130,8 @@ public class PlayerMovment : MonoBehaviour
             //Destroy(Camera);
             Camera.GetComponent<Camera>().enabled = false;
         }
+
+        view.RPC("UpdatePlayerName", RpcTarget.AllBufferedViaServer);
     }
 
     bool CheckIfGrounded()
@@ -156,6 +157,24 @@ public class PlayerMovment : MonoBehaviour
             {
                 gameObject.GetComponent<Rigidbody>().AddForce(transform.up * 10f, ForceMode.Impulse);
             }
+        }
+    }
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.collider.gameObject.tag == "Bullet")
+		{
+            Health -= 20;
+            Destroy(collision.collider.gameObject);
+		}
+	}
+
+    [PunRPC]
+    void UpdatePlayerName()
+    {
+        if (gameObject.tag == "Player")
+		{
+            playerName.text = view.Owner.NickName;
         }
     }
 }
