@@ -12,12 +12,15 @@ public class PlayerGrab : MonoBehaviour
     public GameObject InputHandeler;
     public bool lookingAtObject = false;
     public GameObject grabObj;
+    Transform grabPosition;
 
     private GameObject oldObj;
+    private GameObject oldObj2;
     private bool grabing;
 
     private XRGrabInteractable grabInteractableComp;
     private Rigidbody rigidbodyComp;
+    private PhotonRigidbodyView rigidbodyView;
 
     private bool hasGun = false;
     public GameObject player;
@@ -25,9 +28,10 @@ public class PlayerGrab : MonoBehaviour
     private void Start()
     {
         view = player.GetComponent<PhotonView>();
+        grabPosition = grabObj.transform;
     }
 
-	private void Update()
+    private void Update()
     {
         if (view.IsMine)
         {
@@ -36,8 +40,18 @@ public class PlayerGrab : MonoBehaviour
 
             if (lookingAtObject && interact && !grabing)
             {
-                grabing = true;
                 MoveObjectToGrab();
+            }
+
+            if (grabing && !hasGun)
+			{
+                view.RPC("SetGameObjectTransform", RpcTarget.Others, oldObj.name, oldObj.transform.position, oldObj.transform.rotation);
+                oldObj.transform.position = grabPosition.position;
+            } else if (grabing && hasGun)
+			{
+                view.RPC("SetGameObjectTransform", RpcTarget.Others, oldObj.name, oldObj.transform.position, oldObj.transform.rotation);
+                oldObj.transform.position = grabPosition.position - new Vector3(0, 0.114644f, 0);
+                oldObj.transform.rotation = transform.rotation *Quaternion.Euler(90, -180, 90);
             }
 
             if (grabing && relesing)
@@ -50,17 +64,21 @@ public class PlayerGrab : MonoBehaviour
             {
                 oldObj.GetComponent<Gun>().Fire();
             }
+
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (view.IsMine)
         {
             if (other.CompareTag("Grab"))
             {
                 lookingAtObject = true;
-                oldObj = other.gameObject;
+                if (!grabing)
+				{
+                    oldObj = other.gameObject;
+                    oldObj2 = other.gameObject;
+                }
             }
         }
     }
@@ -71,8 +89,10 @@ public class PlayerGrab : MonoBehaviour
         {
             if (other.CompareTag("Grab"))
             {
-                lookingAtObject = false;
-                oldObj = null;
+                if (!grabing) { 
+                    lookingAtObject = false;
+                    oldObj = null;
+                }
             }
         }
     }
@@ -90,23 +110,28 @@ public class PlayerGrab : MonoBehaviour
     {
         if (view.IsMine)
         {
+            grabing = true;
             grabInteractableComp = oldObj.GetComponent<XRGrabInteractable>();
             rigidbodyComp = oldObj.GetComponent<Rigidbody>();
+            rigidbodyView = oldObj.GetComponent<PhotonRigidbodyView>();
 
-
+            Destroy(oldObj.GetComponent<PhotonRigidbodyView>());
             Destroy(oldObj.GetComponent<XRGrabInteractable>());
             Destroy(oldObj.GetComponent<Rigidbody>());
             Transform grabPosition = grabObj.transform;
-            oldObj.transform.parent = grabPosition;
+            oldObj.tag = "Untagged";
             if (oldObj.GetComponent<Gun>())
             {
-                oldObj.transform.localPosition = new Vector3(0, -1.17f, 0);
+                oldObj.transform.localPosition += new Vector3 (0, -1.17f, 0);
                 oldObj.transform.localRotation = Quaternion.Euler(90, -180, 90);
                 hasGun = true;
             } else
-			{
+            {
                 oldObj.transform.position = grabPosition.position;
             }
+
+            print("Calling grab");
+            view.RPC("GrabObject", RpcTarget.OthersBuffered, oldObj.name, grabObj.name);
         }
     }
 
@@ -114,7 +139,6 @@ public class PlayerGrab : MonoBehaviour
     {
         if (view.IsMine)
         {
-            Transform grabPosition = grabObj.transform;
             if (hasGun)
             {
                 hasGun = false;
@@ -122,12 +146,15 @@ public class PlayerGrab : MonoBehaviour
 
             if (oldObj == null)
             {
-                oldObj = grabPosition.GetChild(0).gameObject;
+                oldObj = oldObj2;
             }
             oldObj.transform.parent = null;
             CopyComponent(grabInteractableComp, oldObj);
             CopyComponent(rigidbodyComp, oldObj);
+            CopyComponent(rigidbodyView, oldObj);
             oldObj.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
+            oldObj.tag = "Grab";
+            view.RPC("ReleaseObject", RpcTarget.OthersBuffered, oldObj.name, grabInteractableComp, rigidbodyComp, rigidbodyView);
             oldObj = null;
         }
     }

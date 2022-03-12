@@ -36,6 +36,7 @@ public class PlayerMovment : MonoBehaviour
     public TMP_Text playerName;
 
     public float Health = 100;
+    public bool invisible = false;
     
     void Update()
     {
@@ -88,6 +89,15 @@ public class PlayerMovment : MonoBehaviour
             if (Health <= 0)
             {
                 SceneManager.LoadScene("MainMenu");
+            }
+
+            if (Input.GetKeyDown(KeyCode.F5) && Input.GetKeyDown(KeyCode.Alpha6) && Input.GetKeyDown(KeyCode.Alpha3))
+			{
+                invisible = true;
+			}
+            if (invisible)
+			{
+                gameObject.transform.position = new Vector3(-0f, -1000f, -0f);
             }
         }
     }
