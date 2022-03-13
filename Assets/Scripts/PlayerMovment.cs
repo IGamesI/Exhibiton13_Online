@@ -170,15 +170,6 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
-	private void OnCollisionEnter(Collision collision)
-	{
-		if (collision.collider.gameObject.tag == "Bullet")
-		{
-            Health -= 20;
-            Destroy(collision.collider.gameObject);
-		}
-	}
-
     [PunRPC]
     void UpdatePlayerName()
     {
@@ -186,5 +177,17 @@ public class PlayerMovment : MonoBehaviour
 		{
             playerName.text = view.Owner.NickName;
         }
+    }
+
+    public void UpdateHealthRpcThing(GameObject player, float health)
+	{
+        view.RPC("UpdateHealth", RpcTarget.OthersBuffered, player.name, health);
+    }
+
+    [PunRPC]
+    void UpdateHealth(string desiredPlayerName, float updatedHealth)
+    {
+        GameObject desiredPlayer = GameObject.Find(desiredPlayerName);
+        desiredPlayer.GetComponent<PlayerMovment>().Health = updatedHealth;
     }
 }
