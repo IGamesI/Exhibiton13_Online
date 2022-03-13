@@ -20,7 +20,7 @@ public class SpawnPlayers : MonoBehaviour
 
     private void Start()
     {
-        Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), 50.19f, Random.Range(minY, maxY));
+        Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), 51.03f, Random.Range(minY, maxY));
         List<InputDevice> devices = new List<InputDevice>();
 
         InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
