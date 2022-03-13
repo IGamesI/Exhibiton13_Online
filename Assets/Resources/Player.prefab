@@ -1098,6 +1098,7 @@ MonoBehaviour:
   playerName: {fileID: 9092333112892693463}
   Health: 100
   invisible: 0
+  movable: 1
 --- !u!111 &4437734366050469685
 Animation:
   m_ObjectHideFlags: 0

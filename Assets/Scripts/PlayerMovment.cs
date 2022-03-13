@@ -37,6 +37,7 @@ public class PlayerMovment : MonoBehaviour
 
     public float Health = 100;
     public bool invisible = false;
+    public bool movable = true;
     
     void Update()
     {
@@ -107,24 +108,27 @@ public class PlayerMovment : MonoBehaviour
 	{
         if (view.IsMine)
         {
-            bool isGrounded = CheckIfGrounded();
-            if (isGrounded)
+            if (movable)
             {
-                fallingSpeed = 0;
-            }
-            else
-            {
+                bool isGrounded = CheckIfGrounded();
+                if (isGrounded)
+                {
+                    fallingSpeed = 0;
+                }
+                else
+                {
+                    fallingSpeed += gravity * Time.fixedDeltaTime;
+                }
                 fallingSpeed += gravity * Time.fixedDeltaTime;
+                controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
+
+                #region Move
+                Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+                Vector3 direction = headYaw * new Vector3(Move.x, 0, Move.y);
+
+                controller.Move(direction * Time.fixedDeltaTime * speed);
+                #endregion
             }
-            fallingSpeed += gravity * Time.fixedDeltaTime;
-            controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
-
-            #region Move
-            Quaternion headYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-            Vector3 direction = headYaw * new Vector3(Move.x, 0, Move.y);
-
-            controller.Move(direction * Time.fixedDeltaTime * speed);
-            #endregion
         }
     }
 
@@ -190,4 +194,18 @@ public class PlayerMovment : MonoBehaviour
         GameObject desiredPlayer = GameObject.Find(desiredPlayerName);
         desiredPlayer.GetComponent<PlayerMovment>().Health = updatedHealth;
     }
+
+    public void UpdatePosition(Vector3 pos, Quaternion rot)
+	{
+        movable = false;
+        gameObject.transform.position = pos;
+        gameObject.transform.rotation = rot;
+        StartCoroutine(waitUntilMove());
+    }
+
+    IEnumerator waitUntilMove()
+	{
+        yield return new WaitForSeconds(0.4f);
+        movable = true;
+	}
 }
