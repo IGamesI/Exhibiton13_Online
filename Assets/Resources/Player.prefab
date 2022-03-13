@@ -1089,7 +1089,7 @@ MonoBehaviour:
   mouseSpeed: 50
   xRotation: 0
   controller: {fileID: 4437734366050469687}
-  speed: 5
+  speed: 7
   gravity: -9.81
   groundLayer:
     serializedVersion: 2
