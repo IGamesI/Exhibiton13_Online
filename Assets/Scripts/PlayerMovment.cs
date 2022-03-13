@@ -84,6 +84,10 @@ public class PlayerMovment : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
 			{
                 print("Exit Game");
+                if (Camera.GetComponent<PlayerGrab>().grabing)
+				{
+                    Camera.GetComponent<PlayerGrab>().ReleaseObject();
+				}
                 Application.Quit();
             }
 

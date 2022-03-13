@@ -30,27 +30,29 @@ public class GrabManager : MonoBehaviour
 		GameObject oldObj = GameObject.Find(oldObjName);
 		GameObject grabObj = GameObject.Find(grabObjName);
 
-		Destroy(oldObj.GetComponent<PhotonRigidbodyView>());
-		Destroy(oldObj.GetComponent<XRGrabInteractable>());
-		Destroy(oldObj.GetComponent<Rigidbody>());
-		Transform grabPosition = grabObj.transform;
+		XRGrabInteractable grabInteractableComp = oldObj.GetComponent<XRGrabInteractable>();
+		Component rigidbodyComp = oldObj.GetComponent<Rigidbody>();
+		PhotonRigidbodyView rigidbodyView = oldObj.GetComponent<PhotonRigidbodyView>();
+
+		Destroy(grabInteractableComp);
+		Destroy(rigidbodyView);
+		Destroy(rigidbodyComp);
 		oldObj.tag = "Untagged";
 	}
 
 	[PunRPC]
-	void ReleaseObject(string oldObjName, XRGrabInteractable grabInteractableComp, Rigidbody rigidbodyComp, PhotonRigidbodyView rigidbodyView)
+	void ReleaseObject(string oldObjName)
 	{
 		print("ReleaseObject");
 		GameObject oldObj = GameObject.Find(oldObjName);
 		print(oldObj);
 		oldObj.transform.parent = null;
-		CopyComponent(grabInteractableComp, oldObj);
-		CopyComponent(rigidbodyComp, oldObj);
-		CopyComponent(rigidbodyView, oldObj);
+
+		oldObj.AddComponent<XRGrabInteractable>();
+		oldObj.AddComponent<Rigidbody>();
+		oldObj.AddComponent<PhotonRigidbodyView>();
 		oldObj.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
 		oldObj.tag = "Grab";
-		view.RPC("ReleaseObject", RpcTarget.AllBuffered, oldObj.name);
-		oldObj = null;
 	}
 
 	[PunRPC]

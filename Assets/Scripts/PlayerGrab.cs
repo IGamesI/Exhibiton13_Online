@@ -16,7 +16,7 @@ public class PlayerGrab : MonoBehaviour
 
     private GameObject oldObj;
     private GameObject oldObj2;
-    private bool grabing;
+    public bool grabing;
 
     private XRGrabInteractable grabInteractableComp;
     private Rigidbody rigidbodyComp;
@@ -24,6 +24,7 @@ public class PlayerGrab : MonoBehaviour
 
     private bool hasGun = false;
     public GameObject player;
+    public List<GameObject> oldObjList = new List<GameObject>();
 
     private void Start()
     {
@@ -64,6 +65,14 @@ public class PlayerGrab : MonoBehaviour
             {
                 oldObj.GetComponent<Gun>().Fire();
             }
+
+            if (!grabing)
+			{
+				foreach (GameObject oldObjs in oldObjList)
+				{
+                    view.RPC("SetGameObjectTransform", RpcTarget.Others, oldObjs.name, oldObjs.transform.position, oldObjs.transform.rotation);
+                }
+			}
 
         }
     }
@@ -115,9 +124,10 @@ public class PlayerGrab : MonoBehaviour
             rigidbodyComp = oldObj.GetComponent<Rigidbody>();
             rigidbodyView = oldObj.GetComponent<PhotonRigidbodyView>();
 
-            Destroy(oldObj.GetComponent<PhotonRigidbodyView>());
-            Destroy(oldObj.GetComponent<XRGrabInteractable>());
-            Destroy(oldObj.GetComponent<Rigidbody>());
+            Destroy(grabInteractableComp);
+            Destroy(rigidbodyView);
+            Destroy(rigidbodyComp);
+
             Transform grabPosition = grabObj.transform;
             oldObj.tag = "Untagged";
             if (oldObj.GetComponent<Gun>())
@@ -135,7 +145,7 @@ public class PlayerGrab : MonoBehaviour
         }
     }
 
-    void ReleaseObject()
+    public void ReleaseObject()
     {
         if (view.IsMine)
         {
@@ -149,12 +159,17 @@ public class PlayerGrab : MonoBehaviour
                 oldObj = oldObj2;
             }
             oldObj.transform.parent = null;
-            CopyComponent(grabInteractableComp, oldObj);
-            CopyComponent(rigidbodyComp, oldObj);
-            CopyComponent(rigidbodyView, oldObj);
+            oldObj.AddComponent<XRGrabInteractable>();
+            oldObj.AddComponent<Rigidbody>();
+            oldObj.AddComponent<PhotonRigidbodyView>();
             oldObj.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
             oldObj.tag = "Grab";
-            view.RPC("ReleaseObject", RpcTarget.OthersBuffered, oldObj.name, grabInteractableComp, rigidbodyComp, rigidbodyView);
+            print("Calling Release");
+            view.RPC("ReleaseObject", RpcTarget.OthersBuffered, oldObj.name);
+            if (!oldObjList.Contains(oldObj))
+			{
+                oldObjList.Add(oldObj);
+            }
             oldObj = null;
         }
     }

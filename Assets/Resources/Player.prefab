@@ -2529,7 +2529,9 @@ MonoBehaviour:
   InputHandeler: {fileID: 604261365538057921}
   lookingAtObject: 0
   grabObj: {fileID: 5718123680482300274}
+  grabing: 0
   player: {fileID: 4437734366050469684}
+  oldObjList: []
 --- !u!1 &5718123680999395347
 GameObject:
   m_ObjectHideFlags: 0
