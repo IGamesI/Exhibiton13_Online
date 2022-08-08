@@ -32,7 +32,8 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public void AdminPanel()
 	{
-        SceneManager.LoadScene("PasswordMenu");
+        // SceneManager.LoadScene("PasswordMenu");
+        SceneManager.LoadScene("AdminPanel");
 	}
 
     public void HelpMenu()
